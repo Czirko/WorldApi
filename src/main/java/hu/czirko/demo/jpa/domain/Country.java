@@ -1,5 +1,7 @@
 package hu.czirko.demo.jpa.domain;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.awt.*;
@@ -7,6 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "country")
+@JsonFilter("cityListFilter")
 public class Country {
     @Id
 
@@ -61,7 +64,7 @@ public class Country {
     @JoinColumn(name="Countrycode")
     private Set<Countrylanguage> languages;
 
-    @Transient
+
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name="Countrycode")
     private Set<City> cities;

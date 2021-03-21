@@ -27,7 +27,6 @@ public class DataService {
 
 
     public List<City> getAllCity() {
-        //cityRepo.findAll().forEach(x-> System.out.println(x));
         return (List<City>) cityRepo.findAll();
     }
 
@@ -47,8 +46,10 @@ public class DataService {
 
     }
 
+
+
     public List<Country> getAllCountry() {
-        //cityRepo.findAll().forEach(x-> System.out.println(x));
+
         return (List<Country>) countryRepo.findAll();
     }
 
