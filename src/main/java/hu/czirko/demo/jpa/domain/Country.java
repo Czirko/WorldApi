@@ -1,13 +1,17 @@
 package hu.czirko.demo.jpa.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.awt.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "country")
 public class Country {
     @Id
+
     @Column(name = "Code")
+    @Size(min = 3,max = 3)
     private String code;
 
     @Column(name = "Name")
@@ -19,41 +23,57 @@ public class Country {
     @Column(name = "Region")
     private String region;
 
-    @Column(name = "SurfaceArea")
+    @Column(name = "Surfacearea")
     private Float surfaceArea;
 
-    @Column(name = "IndepYear")
+    @Column(name = "Indepyear")
     private Integer indepYear;
 
     @Column(name = "Population")
     private Integer population;
 
-    @Column(name = "LifeExpectancy")
+    @Column(name = "Lifeexpectancy")
     private Float lifeExpectancy;
 
     @Column(name = "GNP")
     private Float gnp;
 
-    @Column(name = "GNPOld")
-    private Float gnpOld;
+    @Column(name = "Gnpold")
+    private Float gnpold;
 
-    @Column(name = "LocalName")
+    @Column(name = "Localname")
     private String localName;
 
-    @Column(name = "GovernmentForm")
+    @Column(name = "Governmentform")
     private String governmentForm;
 
-    @Column(name = "HeadOfState")
+    @Column(name = "Headofstate")
     private String headOfState;
 
-    @Column(name = "Capital")
+    @Column(name = "capital")
     private Integer capital;
 
-    @Column(name = "Code2")
+    @Column(name = "code2")
     private String code2;
 
-    @OneToMany(mappedBy="country")
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="Countrycode")
+    private Set<Countrylanguage> languages;
+
+    @Transient
+    @OneToMany(fetch=FetchType.LAZY)
+    @JoinColumn(name="Countrycode")
     private Set<City> cities;
+
+
+    public Set<Countrylanguage> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(Set<Countrylanguage> languages) {
+        this.languages = languages;
+    }
 
     public String getCode() {
         return code;
@@ -127,12 +147,12 @@ public class Country {
         this.gnp = gnp;
     }
 
-    public Float getGnpOld() {
-        return gnpOld;
+    public Float getGnpold() {
+        return gnpold;
     }
 
-    public void setGnpOld(Float gnpOld) {
-        this.gnpOld = gnpOld;
+    public void setGnpold(Float gnpold) {
+        this.gnpold = gnpold;
     }
 
     public String getLocalName() {
@@ -173,5 +193,21 @@ public class Country {
 
     public void setCode2(String code2) {
         this.code2 = code2;
+    }
+
+
+    public Set<City> getCities() {
+        return cities;
+    }
+
+    public void setCities(Set<City> cities) {
+        this.cities = cities;
+    }
+
+    @Override
+    public String toString() {
+        return "Country{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }

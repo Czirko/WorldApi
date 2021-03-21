@@ -1,36 +1,44 @@
 package hu.czirko.demo.jpa.domain;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "city")
-public class City  {
+public class City {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
-    private Integer id;
+    private int id;
 
     @Column(name = "Name")
     private String name;
 
-    //@Column(name = "CountryCode")
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CountryCode",nullable = true)
+    @ManyToOne
+    @JoinColumn(name = "countrycode", referencedColumnName = "code")
     private Country country;
+
+   /* @Column(name = "countrycode")
+    private String countryCode;*/
 
     @Column(name = "District")
     private String district;
 
     @Column(name = "Population")
-    private Integer population;
+    private int population;
 
 
-    public Integer getId() {
+   /* public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }*/
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -41,12 +49,11 @@ public class City  {
     public void setName(String name) {
         this.name = name;
     }
-
     public Country getCountry() {
         return country;
     }
 
-    public void setCountryCode(Country country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 
@@ -58,12 +65,11 @@ public class City  {
         this.district = district;
     }
 
-    public Integer getPopulation() {
+    public int getPopulation() {
         return population;
     }
 
-    public void setPopulation(Integer population) {
+    public void setPopulation(int population) {
         this.population = population;
     }
 }
-

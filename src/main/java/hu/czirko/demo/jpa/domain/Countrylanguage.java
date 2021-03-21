@@ -8,14 +8,14 @@ import java.io.Serializable;
 @IdClass(CountryLangiageId.class)
 public class Countrylanguage  {
     @Id
-    @Column(name = "CountryCode")
+    @Column(name = "Countrycode")
     private String countryCode;
 
     @Id
     @Column(name = "Language")
     private String language;
 
-    @Column(name = "IsOfficial")
+    @Column(name = "Isofficial")
     private String isOfficial;
 
     @Column(name = "Percentage")
