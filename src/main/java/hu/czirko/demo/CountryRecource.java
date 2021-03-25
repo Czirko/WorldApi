@@ -46,9 +46,9 @@ public class CountryRecource {
 
     @GetMapping("/citiesofcountry/{code}")
     public MappingJacksonValue getCitiesOfCountry(@PathVariable String code) {
-        //TODO szar ahogy van ez a funkció, sztrem kéne egy @namedQueryt csinálni
-        return getOnlyMappingValues(data.findCountryByCode(code)
-                ,new HashSet<String>(Arrays.asList(CITY_LIST_FILTER_KEY)));
+
+        return getExceptMappingValues(data.findCountryByCode(code).getCities()
+                ,new HashSet<String>(Arrays.asList("country")));
     }
 
     @GetMapping("/{code}")
@@ -56,6 +56,12 @@ public class CountryRecource {
         return getExceptMappingValues(data.findCountryByCode(code),
                 new HashSet<String>(Arrays.asList(CITY_LIST_FILTER_KEY)));
     }
+
+
+
+    //private List<EntityModel<Object>> hateoasToList()
+
+
 
     public MappingJacksonValue getExceptMappingValues(Object o, Set<String> filteringFieldname) {
         SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.serializeAllExcept(filteringFieldname);

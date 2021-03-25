@@ -1,6 +1,7 @@
 package hu.czirko.demo.jpa.domain;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -64,7 +65,7 @@ public class Country {
     @JoinColumn(name="Countrycode")
     private Set<Countrylanguage> languages;
 
-
+    @JsonManagedReference
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name="Countrycode")
     private Set<City> cities;

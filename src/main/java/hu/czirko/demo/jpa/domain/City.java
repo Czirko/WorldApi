@@ -1,17 +1,26 @@
 package hu.czirko.demo.jpa.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "city")
+@JsonFilter("cityListFilter")
+@NamedQuery(name = "City.findCitiesOfCountry", query = "SELECT c FROM City c WHERE c.country.code = :code")
+@NamedQuery(name="City.findByPopulationBigger",query = "SELECT c FROM City c WHERE c.population>= :targetPop")
+
 public class City {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     private int id;
 
     @Column(name = "Name")
     private String name;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "countrycode", referencedColumnName = "code")
     private Country country;
@@ -71,5 +80,16 @@ public class City {
 
     public void setPopulation(int population) {
         this.population = population;
+    }
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", country=" + country +
+                ", district='" + district + '\'' +
+                ", population=" + population +
+                '}';
     }
 }

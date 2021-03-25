@@ -30,12 +30,19 @@ public class DataService {
         return (List<City>) cityRepo.findAll();
     }
 
+    public List<City> getCitiesOfCountry(String code){
+        return cityRepo.findCitiesOfCountry(code);
+    }
+
     public City saveCity(City c) {
         return cityRepo.save(c);
     }
 
     public City findCityById(int id) {
-        return cityRepo.findById(id).orElseThrow(() -> new NotFoundException("There is no City, with given ID:_" + id));
+        return cityRepo
+                .findById(id)
+                .orElseThrow(() ->
+                        new NotFoundException("There is no City, with given ID:_" + id));
     }
 
     public void deleteCityById(int id) {
@@ -44,6 +51,10 @@ public class DataService {
                 .orElseThrow(() ->
                         new NotFoundException("There is no City, with given ID:_" + id)));
 
+    }
+
+    public List<City> citiesPopulationBiggerThan(int targetPop){
+       return cityRepo.findByPopulationBigger(targetPop);
     }
 
 
